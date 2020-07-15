@@ -8,7 +8,7 @@ export class Impact {
     this.apiKey = apiKey
   }
 
-  async incrementMetric (metricSlug, dimensionValues= {}, count = 1, { date, setTotal } = {}) {
+  async incrementMetric (metricSlug, dimensionValues= {}, count = 1, { date, timeScale, isTotal, isSingleTimeScale } = {}) {
     return request({
       query: `
         mutation DatapointIncrement(
@@ -16,19 +16,23 @@ export class Impact {
           $dimensionValues: JSONObject
           $count: Int!
           $date: Date
-          $setTotal: Boolean
+          $timeScale: String
+          $isTotal: Boolean
+          $isSingleTimeScale: Boolean
         ) {
           datapointIncrement(
             metricSlug: $metricSlug
             dimensionValues: $dimensionValues
             count: $count
             date: $date
-            setTotal: $setTotal
+            timeScale: $timeScale
+            isTotal: $isTotal
+            isSingleTimeScale: $isSingleTimeScale
           )
         }
       `,
       variables: {
-        metricSlug, dimensionValues, count, date, setTotal
+        metricSlug, dimensionValues, count, date, timeScale, isTotal, isSingleTimeScale
       }
     })
   }
