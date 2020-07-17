@@ -2,64 +2,63 @@ import fetch from 'cross-fetch'
 
 import config from './config.js'
 
+// let localApiKey
 // FIXME: pass apiKey to server
-export class Impact {
-  constructor ({ apiKey }) {
-    this.apiKey = apiKey
-  }
+export async function init ({ apiKey }) {
+  // localApiKey = apiKey
+}
 
-  async incrementMetric (metricSlug, dimensionValues = {}, count = 1, { date, timeScale, isTotal, isSingleTimeScale } = {}) {
-    return request({
-      query: `
-        mutation DatapointIncrement(
-          $metricSlug: String!
-          $dimensionValues: JSONObject
-          $count: Int!
-          $date: Date
-          $timeScale: String
-          $isTotal: Boolean
-          $isSingleTimeScale: Boolean
-        ) {
-          datapointIncrement(
-            metricSlug: $metricSlug
-            dimensionValues: $dimensionValues
-            count: $count
-            date: $date
-            timeScale: $timeScale
-            isTotal: $isTotal
-            isSingleTimeScale: $isSingleTimeScale
-          )
-        }
-      `,
-      variables: {
-        metricSlug, dimensionValues, count, date, timeScale, isTotal, isSingleTimeScale
+export async function incrementMetric (metricSlug, dimensionValues = {}, count = 1, { date, timeScale, isTotal, isSingleTimeScale } = {}) {
+  return request({
+    query: `
+      mutation DatapointIncrement(
+        $metricSlug: String!
+        $dimensionValues: JSONObject
+        $count: Int!
+        $date: Date
+        $timeScale: String
+        $isTotal: Boolean
+        $isSingleTimeScale: Boolean
+      ) {
+        datapointIncrement(
+          metricSlug: $metricSlug
+          dimensionValues: $dimensionValues
+          count: $count
+          date: $date
+          timeScale: $timeScale
+          isTotal: $isTotal
+          isSingleTimeScale: $isSingleTimeScale
+        )
       }
-    })
-  }
+    `,
+    variables: {
+      metricSlug, dimensionValues, count, date, timeScale, isTotal, isSingleTimeScale
+    }
+  })
+}
 
-  // for stuff like dau/wau/mau and retention
-  async incrementUnique (metricSlug, hash, { date } = {}) {
-    // new table for uniques
-    return request({
-      query: `
-        mutation DatapointIncrementUnique(
-          $metricSlug: String!
-          $hash: String!
-          $date: Date
-        ) {
-          datapointIncrementUnique(
-            metricSlug: $metricSlug
-            hash: $hash
-            date: $date
-          )
-        }
-
-      `,
-      variables: {
-        metricSlug, hash, date
+// for stuff like dau/wau/mau and retention
+export async function incrementUnique (metricSlug, hash, { date } = {}) {
+  // new table for uniques
+  return request({
+    query: `
+      mutation DatapointIncrementUnique(
+        $metricSlug: String!
+        $hash: String!
+        $date: Date
+      ) {
+        datapointIncrementUnique(
+          metricSlug: $metricSlug
+          hash: $hash
+          date: $date
+        )
       }
-    })
-  }
+
+    `,
+    variables: {
+      metricSlug, hash, date
+    }
+  })
 }
 
 function request (body) {

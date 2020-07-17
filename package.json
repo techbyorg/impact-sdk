@@ -1,6 +1,6 @@
 {
   "name": "@techby/impact",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "SDK for posting datapoints to TechBy Impact",
   "main": "./cjs/index.js",
   "module": "./src/index.js",
