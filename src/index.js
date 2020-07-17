@@ -8,7 +8,7 @@ export class Impact {
     this.apiKey = apiKey
   }
 
-  async incrementMetric (metricSlug, dimensionValues= {}, count = 1, { date, timeScale, isTotal, isSingleTimeScale } = {}) {
+  async incrementMetric (metricSlug, dimensionValues = {}, count = 1, { date, timeScale, isTotal, isSingleTimeScale } = {}) {
     return request({
       query: `
         mutation DatapointIncrement(
@@ -66,7 +66,7 @@ function request (body) {
   return fetch(config.API_URL, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify(body)
   })
