@@ -2,10 +2,9 @@ import fetch from 'cross-fetch'
 
 import config from './config.js'
 
-// let localApiKey
-// FIXME: pass apiKey to server
+let localApiKey
 export async function init ({ apiKey }) {
-  // localApiKey = apiKey
+  localApiKey = apiKey
 }
 
 export async function incrementMetric (metricSlug, dimensionValues = {}, count = 1, { date, timeScale, isTotal, isSingleTimeScale } = {}) {
@@ -64,7 +63,9 @@ export async function incrementUnique (metricSlug, hash, { date } = {}) {
 function request (body) {
   return fetch(config.API_URL, {
     method: 'POST',
+    withCredentials: true,
     headers: {
+      Authorization: `Bearer ${localApiKey}`,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(body)

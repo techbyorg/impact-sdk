@@ -17,8 +17,8 @@ var _crossFetch = _interopRequireDefault(require("cross-fetch"));
 
 var _config = _interopRequireDefault(require("./config.js"));
 
-// let localApiKey
-// FIXME: pass apiKey to server
+var localApiKey;
+
 function init(_x) {
   return _init.apply(this, arguments);
 }
@@ -33,8 +33,9 @@ function _init() {
         switch (_context.prev = _context.next) {
           case 0:
             apiKey = _ref.apiKey;
+            localApiKey = apiKey;
 
-          case 1:
+          case 2:
           case "end":
             return _context.stop();
         }
@@ -131,7 +132,9 @@ function _incrementUnique() {
 function request(body) {
   return (0, _crossFetch["default"])(_config["default"].API_URL, {
     method: 'POST',
+    withCredentials: true,
     headers: {
+      Authorization: "Bearer ".concat(localApiKey),
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(body)
