@@ -11,3 +11,8 @@ const impact = new Impact({
 impact.incrementMetric('users')
 impact.incrementUnique('active-users', 'some-hashed-user-id)
 ```
+
+---
+
+TODO:
+- either bundle with webpack, or somehow embed regenerator runtime so @babel/preset-env doesn't need to be in dependencies
