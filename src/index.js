@@ -7,7 +7,7 @@ export async function init ({ apiKey }) {
   localApiKey = apiKey
 }
 
-export async function incrementMetric (metricSlug, dimensionValues = {}, count = 1, { date, timeScale, isTotal, isSingleTimeScale } = {}) {
+export async function incrementMetric (metricSlug, dimensionValues = {}, count = 1, { date, segmentSlugs, timeScale, isTotal, isSingleTimeScale } = {}) {
   return request({
     query: `
       mutation DatapointIncrement(
@@ -15,6 +15,7 @@ export async function incrementMetric (metricSlug, dimensionValues = {}, count =
         $dimensionValues: JSONObject
         $count: Int!
         $date: Date
+        $segmentSlugs: String
         $timeScale: String
         $isTotal: Boolean
         $isSingleTimeScale: Boolean
@@ -24,6 +25,7 @@ export async function incrementMetric (metricSlug, dimensionValues = {}, count =
           dimensionValues: $dimensionValues
           count: $count
           date: $date
+          segmentSlugs: $segmentSlugs
           timeScale: $timeScale
           isTotal: $isTotal
           isSingleTimeScale: $isSingleTimeScale
@@ -31,7 +33,7 @@ export async function incrementMetric (metricSlug, dimensionValues = {}, count =
       }
     `,
     variables: {
-      metricSlug, dimensionValues, count, date, timeScale, isTotal, isSingleTimeScale
+      metricSlug, dimensionValues, count, date, segmentSlugs, timeScale, isTotal, isSingleTimeScale
     }
   })
 }

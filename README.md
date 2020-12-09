@@ -16,3 +16,4 @@ impact.incrementUnique('active-users', 'some-hashed-user-id)
 
 TODO:
 - either bundle with webpack, or somehow embed regenerator runtime so @babel/preset-env doesn't need to be in dependencies
+  - https://github.com/babel/babel/discussions/11611

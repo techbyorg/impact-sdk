@@ -60,6 +60,7 @@ function _incrementMetric() {
         count,
         _ref2,
         date,
+        segmentSlugs,
         timeScale,
         isTotal,
         isSingleTimeScale,
@@ -71,14 +72,15 @@ function _incrementMetric() {
           case 0:
             dimensionValues = _args2.length > 1 && _args2[1] !== undefined ? _args2[1] : {};
             count = _args2.length > 2 && _args2[2] !== undefined ? _args2[2] : 1;
-            _ref2 = _args2.length > 3 && _args2[3] !== undefined ? _args2[3] : {}, date = _ref2.date, timeScale = _ref2.timeScale, isTotal = _ref2.isTotal, isSingleTimeScale = _ref2.isSingleTimeScale;
+            _ref2 = _args2.length > 3 && _args2[3] !== undefined ? _args2[3] : {}, date = _ref2.date, segmentSlugs = _ref2.segmentSlugs, timeScale = _ref2.timeScale, isTotal = _ref2.isTotal, isSingleTimeScale = _ref2.isSingleTimeScale;
             return _context2.abrupt("return", request({
-              query: "\n      mutation DatapointIncrement(\n        $metricSlug: String!\n        $dimensionValues: JSONObject\n        $count: Int!\n        $date: Date\n        $timeScale: String\n        $isTotal: Boolean\n        $isSingleTimeScale: Boolean\n      ) {\n        datapointIncrement(\n          metricSlug: $metricSlug\n          dimensionValues: $dimensionValues\n          count: $count\n          date: $date\n          timeScale: $timeScale\n          isTotal: $isTotal\n          isSingleTimeScale: $isSingleTimeScale\n        )\n      }\n    ",
+              query: "\n      mutation DatapointIncrement(\n        $metricSlug: String!\n        $dimensionValues: JSONObject\n        $count: Int!\n        $date: Date\n        $segmentSlugs: String\n        $timeScale: String\n        $isTotal: Boolean\n        $isSingleTimeScale: Boolean\n      ) {\n        datapointIncrement(\n          metricSlug: $metricSlug\n          dimensionValues: $dimensionValues\n          count: $count\n          date: $date\n          segmentSlugs: $segmentSlugs\n          timeScale: $timeScale\n          isTotal: $isTotal\n          isSingleTimeScale: $isSingleTimeScale\n        )\n      }\n    ",
               variables: {
                 metricSlug: metricSlug,
                 dimensionValues: dimensionValues,
                 count: count,
                 date: date,
+                segmentSlugs: segmentSlugs,
                 timeScale: timeScale,
                 isTotal: isTotal,
                 isSingleTimeScale: isSingleTimeScale
