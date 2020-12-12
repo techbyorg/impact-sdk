@@ -74,7 +74,7 @@ function _incrementMetric() {
             count = _args2.length > 2 && _args2[2] !== undefined ? _args2[2] : 1;
             _ref2 = _args2.length > 3 && _args2[3] !== undefined ? _args2[3] : {}, date = _ref2.date, segmentSlugs = _ref2.segmentSlugs, timeScale = _ref2.timeScale, isTotal = _ref2.isTotal, isSingleTimeScale = _ref2.isSingleTimeScale;
             return _context2.abrupt("return", request({
-              query: "\n      mutation DatapointIncrement(\n        $metricSlug: String!\n        $dimensionValues: JSONObject\n        $count: Int!\n        $date: Date\n        $segmentSlugs: String\n        $timeScale: String\n        $isTotal: Boolean\n        $isSingleTimeScale: Boolean\n      ) {\n        datapointIncrement(\n          metricSlug: $metricSlug\n          dimensionValues: $dimensionValues\n          count: $count\n          date: $date\n          segmentSlugs: $segmentSlugs\n          timeScale: $timeScale\n          isTotal: $isTotal\n          isSingleTimeScale: $isSingleTimeScale\n        )\n      }\n    ",
+              query: "\n      mutation DatapointIncrement(\n        $metricSlug: String!\n        $dimensionValues: JSONObject\n        $count: Int!\n        $date: Date\n        $segmentSlugs: [String]\n        $timeScale: String\n        $isTotal: Boolean\n        $isSingleTimeScale: Boolean\n      ) {\n        datapointIncrement(\n          metricSlug: $metricSlug\n          dimensionValues: $dimensionValues\n          count: $count\n          date: $date\n          segmentSlugs: $segmentSlugs\n          timeScale: $timeScale\n          isTotal: $isTotal\n          isSingleTimeScale: $isSingleTimeScale\n        )\n      }\n    ",
               variables: {
                 metricSlug: metricSlug,
                 dimensionValues: dimensionValues,
@@ -107,17 +107,19 @@ function _incrementUnique() {
   _regenerator["default"].mark(function _callee3(metricSlug, hash) {
     var _ref3,
         date,
+        segmentSlugs,
         _args3 = arguments;
 
     return _regenerator["default"].wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            _ref3 = _args3.length > 2 && _args3[2] !== undefined ? _args3[2] : {}, date = _ref3.date;
+            _ref3 = _args3.length > 2 && _args3[2] !== undefined ? _args3[2] : {}, date = _ref3.date, segmentSlugs = _ref3.segmentSlugs;
             return _context3.abrupt("return", request({
-              query: "\n      mutation DatapointIncrementUnique(\n        $metricSlug: String!\n        $hash: String!\n        $date: Date\n      ) {\n        datapointIncrementUnique(\n          metricSlug: $metricSlug\n          hash: $hash\n          date: $date\n        )\n      }\n\n    ",
+              query: "\n      mutation DatapointIncrementUnique(\n        $metricSlug: String!\n        $segmentSlugs: [String]\n        $hash: String!\n        $date: Date\n      ) {\n        datapointIncrementUnique(\n          metricSlug: $metricSlug\n          segmentSlugs: $segmentSlugs\n          hash: $hash\n          date: $date\n        )\n      }\n\n    ",
               variables: {
                 metricSlug: metricSlug,
+                segmentSlugs: segmentSlugs,
                 hash: hash,
                 date: date
               }

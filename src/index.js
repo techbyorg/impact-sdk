@@ -15,7 +15,7 @@ export async function incrementMetric (metricSlug, dimensionValues = {}, count =
         $dimensionValues: JSONObject
         $count: Int!
         $date: Date
-        $segmentSlugs: String
+        $segmentSlugs: [String]
         $timeScale: String
         $isTotal: Boolean
         $isSingleTimeScale: Boolean
@@ -39,17 +39,19 @@ export async function incrementMetric (metricSlug, dimensionValues = {}, count =
 }
 
 // for stuff like dau/wau/mau and retention
-export async function incrementUnique (metricSlug, hash, { date } = {}) {
+export async function incrementUnique (metricSlug, hash, { date, segmentSlugs } = {}) {
   // new table for uniques
   return request({
     query: `
       mutation DatapointIncrementUnique(
         $metricSlug: String!
+        $segmentSlugs: [String]
         $hash: String!
         $date: Date
       ) {
         datapointIncrementUnique(
           metricSlug: $metricSlug
+          segmentSlugs: $segmentSlugs
           hash: $hash
           date: $date
         )
@@ -57,7 +59,7 @@ export async function incrementUnique (metricSlug, hash, { date } = {}) {
 
     `,
     variables: {
-      metricSlug, hash, date
+      metricSlug, segmentSlugs, hash, date
     }
   })
 }
